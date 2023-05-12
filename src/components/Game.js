@@ -48,8 +48,16 @@ const Game = ({
             </div>
             <div className="letterContainer">
                 <p>Tente advinhar uma letra da palavra:</p>
-                <form>
-                    <input type="text" name="letter" maxLength="1" required />
+                <form onSubmit={handleSubmit}>
+                    <input
+                        type="text"
+                        name="letter"
+                        maxLength="1"
+                        required
+                        onChange={(e) => setLetter(e.target.value)}
+                        value={letter}
+                        ref={letterInputRef}
+                    />
                     <button>Jogar!</button>
                 </form>
             </div>

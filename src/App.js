@@ -26,7 +26,7 @@ function App() {
     const [pickedCategory, setPickedCategory] = useState('');
     const [letters, setLetters] = useState([]);
 
-    const [guessedLetters, setGueddedLetters] = useState([]);
+    const [guessedLetters, setGuessedLetters] = useState([]);
     const [wrongLetters, setWrongLetters] = useState([]);
     const [guesses, setGuesses] = useState(3);
     const [score, setScore] = useState(0);
@@ -71,10 +71,34 @@ function App() {
         setGameStage(stages[1].name);
     };
 
-    // process the letter input
-    const verifyLetter = () => {
-        setGameStage(stages[2].name);
+    // process letter input
+    const verifyLetter = (letter) => {
+        const normalizedLetter = letter.toLowerCase();
+
+        // check if letter has already been utilized
+        if (
+            guessedLetters.includes(normalizedLetter) ||
+            wrongLetters.includes(normalizedLetter)
+        ) {
+            return;
+        }
+
+        // push guessed letter or remove a chance
+        if (letters.includes(normalizedLetter)) {
+            setGuessedLetters((actualGuessedLetters) => [
+                ...actualGuessedLetters,
+                letter,
+            ]);
+        } else {
+            setWrongLetters((actualWrongLetters) => [
+                ...actualWrongLetters,
+                normalizedLetter,
+            ]);
+        }
     };
+
+    console.log(guessedLetters);
+    console.log(wrongLetters);
 
     //Restarts The Game
     const retry = () => {
